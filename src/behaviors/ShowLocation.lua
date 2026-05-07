@@ -5,7 +5,7 @@ local hook_fns = internal.hook_fns
 table.insert(option_fns,
     {
         type = "checkbox",
-        configKey = "ShowLocation",
+        alias = "ShowLocation",
         label = "Always Show Location",
         default = true,
         tooltip =

@@ -5,7 +5,7 @@ local hook_fns = internal.hook_fns
 table.insert(option_fns,
     {
         type = "checkbox",
-        configKey = "SkipDialogue",
+        alias = "SkipDialogue",
         label = "Auto Skip Dialogue",
         default = false,
         tooltip =

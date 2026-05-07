@@ -4,7 +4,7 @@ local internal = QoLInternal
 local function DrawOptions(ui, uiState)
     for _, option in ipairs(internal.option_fns or {}) do
         if option.type == "checkbox" then
-            lib.widgets.checkbox(ui, uiState, option.configKey, {
+            lib.widgets.checkbox(ui, uiState, option.alias, {
                 label = option.label,
                 tooltip = option.tooltip,
             })

@@ -5,7 +5,7 @@ local hook_fns = internal.hook_fns
 table.insert(option_fns,
     {
         type = "checkbox",
-        configKey = "SkipRunEndCutscene",
+        alias = "SkipRunEndCutscene",
         label = "Skip Run End Cutscene",
         default = true,
         tooltip =

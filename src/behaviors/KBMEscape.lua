@@ -5,7 +5,7 @@ local hook_fns = internal.hook_fns
 table.insert(option_fns,
     {
         type = "checkbox",
-        configKey = "KBMEscape",
+        alias = "KBMEscape",
         label = "KBM Escape Fix",
         default = true,
         tooltip =

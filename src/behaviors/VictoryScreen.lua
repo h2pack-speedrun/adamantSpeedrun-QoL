@@ -5,7 +5,7 @@ local hook_fns = internal.hook_fns
 table.insert(option_fns,
     {
         type = "checkbox",
-        configKey = "VictoryScreen",
+        alias = "VictoryScreen",
         label = "Arcana & Fear on Victory Screen",
         default = true,
         tooltip =

@@ -5,7 +5,7 @@ local hook_fns = internal.hook_fns
 table.insert(option_fns,
     {
         type = "checkbox",
-        configKey = "SpawnLocation",
+        alias = "SpawnLocation",
         label = "Spawn in Training Grounds",
         default = true,
         tooltip =

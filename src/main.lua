@@ -12,7 +12,6 @@ local reload = mods["SGG_Modding-ReLoad"]
 ---@type AdamantModpackLib
 lib = mods["adamant-ModpackLib"]
 
-local dataDefaults = import("config.lua")
 local config = chalk.auto("config.lua")
 
 local PACK_ID = "speedrun"
@@ -58,12 +57,11 @@ local function init()
     import("logic.lua")
     import("ui.lua")
 
-    local definition = lib.prepareDefinition(internal, dataDefaults, {
+    local definition = lib.prepareDefinition(internal, {
         modpack = PACK_ID,
         id = MODULE_ID,
         name = "Quality of Life",
         tooltip = "Quality of life improvements for speedrunning.",
-        default = dataDefaults.Enabled,
         affectsRunData = false,
         storage = internal.BuildStorage(),
     })

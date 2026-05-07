@@ -5,7 +5,7 @@ local hook_fns = internal.hook_fns
 table.insert(option_fns,
     {
         type = "checkbox",
-        configKey = "SkipDeathCutscene",
+        alias = "SkipDeathCutscene",
         label = "Skip Death Cutscene",
         default = true,
         tooltip =
