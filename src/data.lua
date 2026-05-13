@@ -1,14 +1,23 @@
--- luacheck: globals QoLInternal
-local internal = QoLInternal
-
-internal.hook_fns = {}
-internal.option_fns = {}
-
 local PACK_ID = "speedrun"
 
-function internal.BuildStorage()
+local data = {
+    hooks = {},
+    options = {},
+}
+
+local function register(path)
+    local behavior = import(path)
+    if behavior.option then
+        table.insert(data.options, behavior.option)
+    end
+    for _, hook in ipairs(behavior.hooks or {}) do
+        table.insert(data.hooks, hook)
+    end
+end
+
+function data.buildStorage()
     local storage = {}
-    for _, option in ipairs(internal.option_fns) do
+    for _, option in ipairs(data.options) do
         if option.type == "checkbox" then
             table.insert(storage, {
                 type = "bool",
@@ -22,12 +31,12 @@ function internal.BuildStorage()
     return storage
 end
 
-import("behaviors/KBMEscape.lua")
-import("behaviors/ShowLocation.lua")
-import("behaviors/SkipDeathCutscene.lua")
-import("behaviors/SkipDialogue.lua")
-import("behaviors/SkipRunEndCutscene.lua")
-import("behaviors/SpawnLocation.lua")
-import("behaviors/VictoryScreen.lua")
+register("behaviors/KBMEscape.lua")
+register("behaviors/ShowLocation.lua")
+register("behaviors/SkipDeathCutscene.lua")
+register("behaviors/SkipDialogue.lua")
+register("behaviors/SkipRunEndCutscene.lua")
+register("behaviors/SpawnLocation.lua")
+register("behaviors/VictoryScreen.lua")
 
-return internal
+return data

@@ -1,16 +1,13 @@
-local internal = QoLInternal
-local option_fns = internal.option_fns
-local hook_fns = internal.hook_fns
-
-table.insert(option_fns,
-    {
+local module = {
+    option = {
         type = "checkbox",
         alias = "VictoryScreen",
         label = "Arcana & Fear on Victory Screen",
         default = true,
         tooltip =
         "Displays the Arcana and Fear victory screen."
-    })
+    },
+}
 
 local MetaUpgradeDisplay = {
     StartY = 895,
@@ -266,9 +263,10 @@ local function DestroyDisplays()
     end
 end
 
-table.insert(hook_fns, function()
+module.hooks = {
+    function(host, store)
     lib.hooks.Wrap("OpenRunClearScreen", function(base)
-        if internal.store.read("VictoryScreen") and lib.isModuleEnabled(internal.store, internal.PACK_ID) then
+        if store.read("VictoryScreen") and host.isEnabled() then
             thread(function()
                 wait(0.5)
                 local metaEndY = CreateMetaUpgradeDisplay()
@@ -279,14 +277,14 @@ table.insert(hook_fns, function()
     end)
 
     lib.hooks.Wrap("CloseRunClearScreen", function(base, screen)
-        if internal.store.read("VictoryScreen") and lib.isModuleEnabled(internal.store, internal.PACK_ID) then
+        if store.read("VictoryScreen") and host.isEnabled() then
             DestroyDisplays()
         end
         base(screen)
     end)
 
     lib.hooks.Wrap("TraitTrayScreenRemoveItems", function(base, screen)
-        if not internal.store.read("VictoryScreen") or not lib.isModuleEnabled(internal.store, internal.PACK_ID) then
+        if not store.read("VictoryScreen") or not host.isEnabled() then
             return base(screen)
         end
 
@@ -310,4 +308,7 @@ table.insert(hook_fns, function()
             screen.Icons[id] = icon
         end
     end)
-end)
+    end,
+}
+
+return module

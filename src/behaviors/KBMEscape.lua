@@ -1,57 +1,55 @@
-local internal = QoLInternal
-local option_fns = internal.option_fns
-local hook_fns = internal.hook_fns
-
-table.insert(option_fns,
-    {
+return {
+    option = {
         type = "checkbox",
         alias = "KBMEscape",
         label = "KBM Escape Fix",
         default = true,
         tooltip =
         "KBM Escape will now work during boon/pom Selection, Hex selection, PoS menu, and during death sequences."
-    })
+    },
+    hooks = {
+        function(host, store)
+            lib.hooks.Wrap("IsPauseBlocked", function(base)
+                if not store.read("KBMEscape") or not host.isEnabled() then return base() end
 
-table.insert(hook_fns, function()
-    lib.hooks.Wrap("IsPauseBlocked", function(base)
-        if not internal.store.read("KBMEscape") or not lib.isModuleEnabled(internal.store, internal.PACK_ID) then return base() end
+                if SessionMapState.HandlingDeath then
+                    return false
+                end
+                if SessionMapState.BlockPause then
+                    return true
+                end
 
-        if SessionMapState.HandlingDeath then
-            return false
-        end
-        if SessionMapState.BlockPause then
-            return true
-        end
+                if CurrentRun ~= nil then
+                    if CurrentRun.Hero.FishingStarted then
+                        return true
+                    end
+                end
 
-        if CurrentRun ~= nil then
-            if CurrentRun.Hero.FishingStarted then
-                return true
-            end
-        end
+                local excludedScreens = { UpgradeChoice = true, SpellScreen = true, TalentScreen = true }
+                for screenName, screen in pairs(ActiveScreens) do
+                    if excludedScreens[screenName] then
+                        return false
+                    end
+                    if screen.BlockPause then
+                        return true
+                    end
+                end
 
-        local excludedScreens = { UpgradeChoice = true, SpellScreen = true, TalentScreen = true }
-        for screenName, screen in pairs(ActiveScreens) do
-            if excludedScreens[screenName] then
+                local blockingScreens = {
+                    "Codex", "MetaUpgrade", "ShrineUpgrade", "MusicPlayer",
+                    "QuestLog", "Mutator", "GhostAdmin", "AwardMenu", "RunClear",
+                    "RunHistory", "GameStats", "TraitTrayScreen", "WeaponUpgradeScreen",
+                    "InventoryScreen", "MarketScreen", "WeaponShop",
+                    "DebugEnemySpawn", "DebugConversations",
+                }
+                for _, name in pairs(blockingScreens) do
+                    if ActiveScreens[name] then
+                        return true
+                    end
+                end
+
                 return false
-            end
-            if screen.BlockPause then
-                return true
-            end
-        end
-
-        local blockingScreens = {
-            "Codex", "MetaUpgrade", "ShrineUpgrade", "MusicPlayer",
-            "QuestLog", "Mutator", "GhostAdmin", "AwardMenu", "RunClear",
-            "RunHistory", "GameStats", "TraitTrayScreen", "WeaponUpgradeScreen",
-            "InventoryScreen", "MarketScreen", "WeaponShop",
-            "DebugEnemySpawn", "DebugConversations",
-        }
-        for _, name in pairs(blockingScreens) do
-            if ActiveScreens[name] then
-                return true
-            end
-        end
-
-        return false
-    end)
-end)
+            end)
+        end,
+    },
+}

@@ -1,10 +1,15 @@
--- luacheck: globals QoLInternal
-local internal = QoLInternal
+local module = {}
+local data = nil
 
-function internal.RegisterHooks()
-    for _, fn in ipairs(internal.hook_fns) do
-        fn()
+function module.registerHooks(host, store)
+    for _, fn in ipairs(data.hooks) do
+        fn(host, store)
     end
 end
 
-return internal
+function module.bind(moduleData)
+    data = moduleData
+    return module
+end
+
+return module

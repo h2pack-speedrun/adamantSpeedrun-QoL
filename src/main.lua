@@ -18,34 +18,24 @@ local PACK_ID = "speedrun"
 local MODULE_ID = "QoL"
 local PLUGIN_GUID = _PLUGIN.guid
 
----@class QoLInternal
----@field store ManagedStore|nil
+---@class QoLModuleAnchor
 ---@field standaloneUi StandaloneRuntime|nil
----@field PACK_ID string|nil
----@field MODULE_ID string|nil
----@field BuildStorage fun(): StorageSchema|nil
----@field RegisterHooks fun(host: AuthorHost, store: ManagedStore)|nil
----@field DrawTab fun(imgui: table, session: AuthorSession, host: AuthorHost)|nil
----@field DrawQuickContent fun(imgui: table, session: AuthorSession, host: AuthorHost)|nil
-QoLInternal = QoLInternal or {}
----@type QoLInternal
-local internal = QoLInternal
+MODULE_ANCHOR = MODULE_ANCHOR or {}
+---@type QoLModuleAnchor
+local moduleAnchor = MODULE_ANCHOR
 
-internal.PACK_ID = PACK_ID
-internal.MODULE_ID = MODULE_ID
-
-internal.standaloneUi = nil
+moduleAnchor.standaloneUi = nil
 
 local function registerGui()
     rom.gui.add_imgui(function()
-        if internal.standaloneUi and internal.standaloneUi.renderWindow then
-            internal.standaloneUi.renderWindow()
+        if moduleAnchor.standaloneUi and moduleAnchor.standaloneUi.renderWindow then
+            moduleAnchor.standaloneUi.renderWindow()
         end
     end)
 
     rom.gui.add_to_menu_bar(function()
-        if internal.standaloneUi and internal.standaloneUi.addMenuBar then
-            internal.standaloneUi.addMenuBar()
+        if moduleAnchor.standaloneUi and moduleAnchor.standaloneUi.addMenuBar then
+            moduleAnchor.standaloneUi.addMenuBar()
         end
     end)
 end
@@ -53,12 +43,12 @@ end
 local function init()
     import_as_fallback(rom.game)
 
-    import("data.lua")
-    import("logic.lua")
-    import("ui.lua")
+    local data = import("data.lua")
+    local logic = import("logic.lua").bind(data)
+    local ui = import("ui.lua").bind(data)
 
-    local host, store = lib.createModule({
-        owner = internal,
+    local host = lib.createModule({
+        owner = moduleAnchor,
         pluginGuid = PLUGIN_GUID,
         config = config,
         definition = {
@@ -66,16 +56,15 @@ local function init()
             id = MODULE_ID,
             name = "Quality of Life",
             tooltip = "Quality of life improvements for speedrunning.",
-            storage = internal.BuildStorage(),
+            storage = data.buildStorage(),
         },
-        registerHooks = internal.RegisterHooks,
-        drawTab = internal.DrawTab,
-        drawQuickContent = internal.DrawQuickContent,
+        registerHooks = logic.registerHooks,
+        drawTab = ui.drawTab,
+        drawQuickContent = ui.drawQuickContent,
     })
-    internal.store = store
 
     host.activate()
-    internal.standaloneUi = lib.standaloneHost(PLUGIN_GUID)
+    moduleAnchor.standaloneUi = lib.standaloneHost(PLUGIN_GUID)
 end
 
 local loader = reload.auto_single()

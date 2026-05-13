@@ -1,8 +1,9 @@
--- luacheck: globals QoLInternal lib
-local internal = QoLInternal
+-- luacheck: globals lib
+local module = {}
+local data = nil
 
 local function DrawOptions(ui, uiState)
-    for _, option in ipairs(internal.option_fns or {}) do
+    for _, option in ipairs(data.options) do
         if option.type == "checkbox" then
             lib.widgets.checkbox(ui, uiState, option.alias, {
                 label = option.label,
@@ -12,12 +13,17 @@ local function DrawOptions(ui, uiState)
     end
 end
 
-function internal.DrawTab(ui, uiState)
+function module.drawTab(ui, uiState)
     DrawOptions(ui, uiState)
 end
 
-function internal.DrawQuickContent(ui, uiState)
+function module.drawQuickContent(ui, uiState)
     DrawOptions(ui, uiState)
 end
 
-return internal
+function module.bind(moduleData)
+    data = moduleData
+    return module
+end
+
+return module
