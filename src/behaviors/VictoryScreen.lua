@@ -267,7 +267,7 @@ local function DestroyDisplays()
 end
 
 table.insert(hook_fns, function()
-    lib.hooks.Wrap(internal, "OpenRunClearScreen", function(base)
+    lib.hooks.Wrap("OpenRunClearScreen", function(base)
         if internal.store.read("VictoryScreen") and lib.isModuleEnabled(internal.store, internal.PACK_ID) then
             thread(function()
                 wait(0.5)
@@ -278,14 +278,14 @@ table.insert(hook_fns, function()
         base()
     end)
 
-    lib.hooks.Wrap(internal, "CloseRunClearScreen", function(base, screen)
+    lib.hooks.Wrap("CloseRunClearScreen", function(base, screen)
         if internal.store.read("VictoryScreen") and lib.isModuleEnabled(internal.store, internal.PACK_ID) then
             DestroyDisplays()
         end
         base(screen)
     end)
 
-    lib.hooks.Wrap(internal, "TraitTrayScreenRemoveItems", function(base, screen)
+    lib.hooks.Wrap("TraitTrayScreenRemoveItems", function(base, screen)
         if not internal.store.read("VictoryScreen") or not lib.isModuleEnabled(internal.store, internal.PACK_ID) then
             return base(screen)
         end

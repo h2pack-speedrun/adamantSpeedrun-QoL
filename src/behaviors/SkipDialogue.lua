@@ -13,7 +13,7 @@ table.insert(option_fns,
     })
 
 table.insert(hook_fns, function()
-    lib.hooks.Wrap(internal, "PlayTextLines", function(base, source, textLines, args)
+    lib.hooks.Wrap("PlayTextLines", function(base, source, textLines, args)
         if not internal.store.read("SkipDialogue") or not lib.isModuleEnabled(internal.store, internal.PACK_ID) then
             return base(source, textLines, args)
         end

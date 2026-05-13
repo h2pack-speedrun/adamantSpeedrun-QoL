@@ -14,7 +14,7 @@ table.insert(option_fns,
 
 table.insert(hook_fns, function()
     lib.hooks.Context.Wrap(internal, "KillHero", function(_, _, _)
-        lib.hooks.Wrap(internal, "LoadMap", function(base, argTable)
+        lib.hooks.Wrap("LoadMap", function(base, argTable)
             if not internal.store.read("SpawnLocation") or not lib.isModuleEnabled(internal.store, internal.PACK_ID) then
                 base(argTable)
                 return

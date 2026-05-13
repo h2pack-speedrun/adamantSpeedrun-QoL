@@ -24,9 +24,9 @@ local PLUGIN_GUID = _PLUGIN.guid
 ---@field PACK_ID string|nil
 ---@field MODULE_ID string|nil
 ---@field BuildStorage fun(): StorageSchema|nil
----@field RegisterHooks fun()|nil
----@field DrawTab fun(imgui: table, session: AuthorSession)|nil
----@field DrawQuickContent fun(imgui: table, session: AuthorSession)|nil
+---@field RegisterHooks fun(host: AuthorHost, store: ManagedStore)|nil
+---@field DrawTab fun(imgui: table, session: AuthorSession, host: AuthorHost)|nil
+---@field DrawQuickContent fun(imgui: table, session: AuthorSession, host: AuthorHost)|nil
 QoLInternal = QoLInternal or {}
 ---@type QoLInternal
 local internal = QoLInternal
@@ -57,28 +57,24 @@ local function init()
     import("logic.lua")
     import("ui.lua")
 
-    local definition = lib.prepareDefinition(internal, {
-        modpack = PACK_ID,
-        id = MODULE_ID,
-        name = "Quality of Life",
-        tooltip = "Quality of life improvements for speedrunning.",
-        affectsRunData = false,
-        storage = internal.BuildStorage(),
-    })
-
-    local store, session = lib.createStore(config, definition)
-    internal.store = store
-
-    lib.createModuleHost({
+    local host, store = lib.createModule({
+        owner = internal,
         pluginGuid = PLUGIN_GUID,
-        definition = definition,
-        store = store,
-        session = session,
-        hookOwner = internal,
+        config = config,
+        definition = {
+            modpack = PACK_ID,
+            id = MODULE_ID,
+            name = "Quality of Life",
+            tooltip = "Quality of life improvements for speedrunning.",
+            storage = internal.BuildStorage(),
+        },
         registerHooks = internal.RegisterHooks,
         drawTab = internal.DrawTab,
         drawQuickContent = internal.DrawQuickContent,
     })
+    internal.store = store
+
+    host.activate()
     internal.standaloneUi = lib.standaloneHost(PLUGIN_GUID)
 end
 
