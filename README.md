@@ -12,6 +12,8 @@ The module currently includes:
 
 - KBM Escape Fix
   Makes Escape work correctly during boon/pom selection, Hex selection, Path of Stars, and death sequences, so keyboard-and-mouse players can give up while dying.
+- Reroll Save
+  Makes rerolling (Saluting the Oath statue to change the seed) saves the game.
 - Always Show Location
   Makes the current location always visible.
 - Skip Death Cutscene

@@ -32,6 +32,7 @@ function data.buildStorage()
 end
 
 register("behaviors/KBMEscape.lua")
+register("behaviors/RerollSave.lua")
 register("behaviors/ShowLocation.lua")
 register("behaviors/SkipDeathCutscene.lua")
 register("behaviors/SkipDialogue.lua")
