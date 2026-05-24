@@ -9,8 +9,8 @@ return {
     },
     hooks = {
         function(host, store)
-            lib.hooks.Context.Wrap("KillHero", function(_, _, _)
-                lib.hooks.Wrap("LoadMap", function(base, argTable)
+            host.hooks.contextWrap("KillHero", function(_, _, _)
+                host.hooks.wrap("LoadMap", function(base, argTable)
                     if not store.read("SpawnLocation") or not host.isEnabled() then
                         base(argTable)
                         return

@@ -9,7 +9,7 @@ return {
     },
     hooks = {
         function(host, store)
-            lib.hooks.Wrap("EndEarlyAccessPresentation", function(baseFunc)
+            host.hooks.wrap("EndEarlyAccessPresentation", function(baseFunc)
                 if not store.read("SkipRunEndCutscene") or not host.isEnabled() then
                     return baseFunc()
                 end

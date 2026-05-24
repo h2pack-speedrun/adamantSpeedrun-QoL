@@ -19,7 +19,7 @@ end
 
 module.hooks = {
     function(host, store)
-        lib.hooks.Wrap("ShowHealthUI", function(baseFunc)
+        host.hooks.wrap("ShowHealthUI", function(baseFunc)
             baseFunc()
             if store.read("ShowLocation") and host.isEnabled() then
                 ShowDepthCounter()

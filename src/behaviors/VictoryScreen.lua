@@ -265,7 +265,7 @@ end
 
 module.hooks = {
     function(host, store)
-    lib.hooks.Wrap("OpenRunClearScreen", function(base)
+    host.hooks.wrap("OpenRunClearScreen", function(base)
         if store.read("VictoryScreen") and host.isEnabled() then
             thread(function()
                 wait(0.5)
@@ -276,14 +276,14 @@ module.hooks = {
         base()
     end)
 
-    lib.hooks.Wrap("CloseRunClearScreen", function(base, screen)
+    host.hooks.wrap("CloseRunClearScreen", function(base, screen)
         if store.read("VictoryScreen") and host.isEnabled() then
             DestroyDisplays()
         end
         base(screen)
     end)
 
-    lib.hooks.Wrap("TraitTrayScreenRemoveItems", function(base, screen)
+    host.hooks.wrap("TraitTrayScreenRemoveItems", function(base, screen)
         if not store.read("VictoryScreen") or not host.isEnabled() then
             return base(screen)
         end

@@ -9,7 +9,7 @@ return {
     },
     hooks = {
         function(host, store)
-            lib.hooks.Wrap("IsPauseBlocked", function(base)
+            host.hooks.wrap("IsPauseBlocked", function(base)
                 if not store.read("KBMEscape") or not host.isEnabled() then return base() end
 
                 if SessionMapState.HandlingDeath then

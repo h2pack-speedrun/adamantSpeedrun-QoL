@@ -9,7 +9,7 @@ return {
     },
     hooks = {
         function(host, store)
-            lib.hooks.Wrap("PlayTextLines", function(base, source, textLines, args)
+            host.hooks.wrap("PlayTextLines", function(base, source, textLines, args)
                 if not store.read("SkipDialogue") or not host.isEnabled() then
                     return base(source, textLines, args)
                 end

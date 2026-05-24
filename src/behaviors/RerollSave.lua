@@ -9,7 +9,7 @@ return {
     },
     hooks = {
         function(host, store)
-            lib.hooks.Wrap("SpecialInteractChangeNextRunRNG", function(base, usee, args)
+            host.hooks.wrap("SpecialInteractChangeNextRunRNG", function(base, usee, args)
                 base(usee, args)
                 if not store.read("RerollSave") or not host.isEnabled() then
                     return

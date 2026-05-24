@@ -9,8 +9,8 @@ return {
     },
     hooks = {
         function(host, store)
-            lib.hooks.Context.Wrap("DeathPresentation", function()
-                lib.hooks.Wrap("wait", function(base, duration, tag, persist)
+            host.hooks.contextWrap("DeathPresentation", function()
+                host.hooks.wrap("wait", function(base, duration, tag, persist)
                     if not store.read("SkipDeathCutscene") or not host.isEnabled() then
                         return base(duration, tag, persist)
                     end
