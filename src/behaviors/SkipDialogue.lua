@@ -8,9 +8,9 @@ return {
         "Automatically skips dialogue prompts during gameplay."
     },
     hooks = {
-        function(host, store)
-            host.hooks.wrap("PlayTextLines", function(base, source, textLines, args)
-                if not store.read("SkipDialogue") or not host.isEnabled() then
+        function(module)
+            module.hooks.wrap("PlayTextLines", function(host, runtime, base, source, textLines, args)
+                if not runtime.data.read("SkipDialogue") or not host.isEnabled() then
                     return base(source, textLines, args)
                 end
 

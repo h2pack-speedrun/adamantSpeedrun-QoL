@@ -8,10 +8,10 @@ return {
         "Spawns you in the Training Grounds instead of the House of Hades. Useful for testing and practicing."
     },
     hooks = {
-        function(host, store)
-            host.hooks.contextWrap("KillHero", function(_, _, _)
-                host.hooks.wrap("LoadMap", function(base, argTable)
-                    if not store.read("SpawnLocation") or not host.isEnabled() then
+        function(module)
+            module.hooks.contextWrap("KillHero", function(host, runtime, context)
+                context.wrap("LoadMap", function(base, argTable)
+                    if not runtime.data.read("SpawnLocation") or not host.isEnabled() then
                         base(argTable)
                         return
                     end

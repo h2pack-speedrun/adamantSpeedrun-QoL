@@ -22,30 +22,30 @@ local function init()
     import_as_fallback(rom.game)
 
     local data = import("data.lua")
-    local logic = import("logic.lua").bind(data)
-    local ui = import("ui.lua").bind(data)
+    local behaviors = import("behaviors.lua")
+    local logic = import("logic.lua")
+    local ui = import("ui.lua")
 
-    local host, store = lib.createModule({
+    local module = lib.createModule({
         pluginGuid = PLUGIN_GUID,
         config = config,
         modpack = PACK_ID,
         id = MODULE_ID,
         name = "Quality of Life",
         tooltip = "Quality of life improvements for speedrunning.",
-        storage = data.buildStorage(),
-        drawTab = ui.drawTab,
-        drawQuickContent = ui.drawQuickContent,
     })
-    if not host then
+    if not module then
         return
     end
 
-    host.fallbackUi.attachGuiOnce(function(fallbackUi)
+    module.data.define(data.buildStorage(behaviors.options))
+    ui.attach(module, behaviors.options)
+    module.fallbackUi.attachGuiOnce(function(fallbackUi)
         rom.gui.add_imgui(fallbackUi.renderWindow)
         rom.gui.add_to_menu_bar(fallbackUi.addMenuBar)
     end)
-    logic.registerHooks(host, store)
-    if not host.activate() then
+    logic.attach(module, behaviors.hooks)
+    if not module.activate() then
         return
     end
 end

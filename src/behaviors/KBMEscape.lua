@@ -1,3 +1,30 @@
+local ExcludedScreens = {
+    UpgradeChoice = true,
+    SpellScreen = true,
+    TalentScreen = true,
+}
+
+local BlockingScreens = {
+    "Codex",
+    "MetaUpgrade",
+    "ShrineUpgrade",
+    "MusicPlayer",
+    "QuestLog",
+    "Mutator",
+    "GhostAdmin",
+    "AwardMenu",
+    "RunClear",
+    "RunHistory",
+    "GameStats",
+    "TraitTrayScreen",
+    "WeaponUpgradeScreen",
+    "InventoryScreen",
+    "MarketScreen",
+    "WeaponShop",
+    "DebugEnemySpawn",
+    "DebugConversations",
+}
+
 return {
     option = {
         type = "checkbox",
@@ -8,9 +35,9 @@ return {
         "KBM Escape will now work during boon/pom Selection, Hex selection, PoS menu, and during death sequences."
     },
     hooks = {
-        function(host, store)
-            host.hooks.wrap("IsPauseBlocked", function(base)
-                if not store.read("KBMEscape") or not host.isEnabled() then return base() end
+        function(module)
+            module.hooks.wrap("IsPauseBlocked", function(host, runtime, base)
+                if not runtime.data.read("KBMEscape") or not host.isEnabled() then return base() end
 
                 if SessionMapState.HandlingDeath then
                     return false
@@ -25,9 +52,8 @@ return {
                     end
                 end
 
-                local excludedScreens = { UpgradeChoice = true, SpellScreen = true, TalentScreen = true }
                 for screenName, screen in pairs(ActiveScreens) do
-                    if excludedScreens[screenName] then
+                    if ExcludedScreens[screenName] then
                         return false
                     end
                     if screen.BlockPause then
@@ -35,14 +61,7 @@ return {
                     end
                 end
 
-                local blockingScreens = {
-                    "Codex", "MetaUpgrade", "ShrineUpgrade", "MusicPlayer",
-                    "QuestLog", "Mutator", "GhostAdmin", "AwardMenu", "RunClear",
-                    "RunHistory", "GameStats", "TraitTrayScreen", "WeaponUpgradeScreen",
-                    "InventoryScreen", "MarketScreen", "WeaponShop",
-                    "DebugEnemySpawn", "DebugConversations",
-                }
-                for _, name in pairs(blockingScreens) do
+                for _, name in ipairs(BlockingScreens) do
                     if ActiveScreens[name] then
                         return true
                     end

@@ -54,6 +54,10 @@ local function GetTraitTrayScreen()
     return ActiveScreens.TraitTrayScreen
 end
 
+local function ShouldShowVictoryDetails(host, runtime)
+    return host.isEnabled() and runtime.data.read("VictoryScreen")
+end
+
 local function CreateMetaUpgradeDisplay()
     local display = MetaUpgradeDisplay
     display.Components = {}
@@ -264,50 +268,52 @@ local function DestroyDisplays()
 end
 
 module.hooks = {
-    function(host, store)
-    host.hooks.wrap("OpenRunClearScreen", function(base)
-        if store.read("VictoryScreen") and host.isEnabled() then
-            thread(function()
-                wait(0.5)
-                local metaEndY = CreateMetaUpgradeDisplay()
-                CreateShrineUpgradeDisplay(metaEndY)
-            end)
-        end
-        base()
-    end)
+    function(module)
+        module.hooks.wrap("OpenRunClearScreen", function(host, runtime, base)
+            if ShouldShowVictoryDetails(host, runtime) then
+                thread(function()
+                    wait(0.5)
+                    if not ShouldShowVictoryDetails(host, runtime) or GetTraitTrayScreen() == nil then
+                        return
+                    end
+                    DestroyDisplays()
+                    local metaEndY = CreateMetaUpgradeDisplay()
+                    CreateShrineUpgradeDisplay(metaEndY)
+                end)
+            end
+            base()
+        end)
 
-    host.hooks.wrap("CloseRunClearScreen", function(base, screen)
-        if store.read("VictoryScreen") and host.isEnabled() then
+        module.hooks.wrap("CloseRunClearScreen", function(host, runtime, base, screen)
             DestroyDisplays()
-        end
-        base(screen)
-    end)
+            base(screen)
+        end)
 
-    host.hooks.wrap("TraitTrayScreenRemoveItems", function(base, screen)
-        if not store.read("VictoryScreen") or not host.isEnabled() then
-            return base(screen)
-        end
-
-        local savedIcons = {}
-        for _, id in ipairs(MetaUpgradeDisplay.Components) do
-            if screen.Icons[id] then
-                savedIcons[id] = screen.Icons[id]
-                screen.Icons[id] = nil
+        module.hooks.wrap("TraitTrayScreenRemoveItems", function(host, runtime, base, screen)
+            if not ShouldShowVictoryDetails(host, runtime) then
+                return base(screen)
             end
-        end
-        for _, id in ipairs(ShrineUpgradeDisplay.Components) do
-            if screen.Icons[id] then
-                savedIcons[id] = screen.Icons[id]
-                screen.Icons[id] = nil
+
+            local savedIcons = {}
+            for _, id in ipairs(MetaUpgradeDisplay.Components) do
+                if screen.Icons[id] then
+                    savedIcons[id] = screen.Icons[id]
+                    screen.Icons[id] = nil
+                end
             end
-        end
+            for _, id in ipairs(ShrineUpgradeDisplay.Components) do
+                if screen.Icons[id] then
+                    savedIcons[id] = screen.Icons[id]
+                    screen.Icons[id] = nil
+                end
+            end
 
-        base(screen)
+            base(screen)
 
-        for id, icon in pairs(savedIcons) do
-            screen.Icons[id] = icon
-        end
-    end)
+            for id, icon in pairs(savedIcons) do
+                screen.Icons[id] = icon
+            end
+        end)
     end,
 }
 

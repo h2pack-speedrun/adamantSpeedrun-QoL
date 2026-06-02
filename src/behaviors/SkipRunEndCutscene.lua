@@ -8,9 +8,9 @@ return {
         "Skip the end-of-run cutscene. The victory screen will still appear, but you will be immediately returned to the main menu."
     },
     hooks = {
-        function(host, store)
-            host.hooks.wrap("EndEarlyAccessPresentation", function(baseFunc)
-                if not store.read("SkipRunEndCutscene") or not host.isEnabled() then
+        function(module)
+            module.hooks.wrap("EndEarlyAccessPresentation", function(host, runtime, baseFunc)
+                if not runtime.data.read("SkipRunEndCutscene") or not host.isEnabled() then
                     return baseFunc()
                 end
 

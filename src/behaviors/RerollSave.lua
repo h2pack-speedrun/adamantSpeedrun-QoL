@@ -8,10 +8,10 @@ return {
         "Saluting the Oath statue now triggers game save."
     },
     hooks = {
-        function(host, store)
-            host.hooks.wrap("SpecialInteractChangeNextRunRNG", function(base, usee, args)
+        function(module)
+            module.hooks.wrap("SpecialInteractChangeNextRunRNG", function(host, runtime, base, usee, args)
                 base(usee, args)
-                if not store.read("RerollSave") or not host.isEnabled() then
+                if not runtime.data.read("RerollSave") or not host.isEnabled() then
                     return
                 end
                 RequestPreRunLoadoutChangeSave()

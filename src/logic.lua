@@ -1,15 +1,13 @@
 local module = {}
-local data = nil
 
-function module.registerHooks(host, store)
-    for _, fn in ipairs(data.hooks) do
-        fn(host, store)
+function module.registerHooks(moduleRef, hooks)
+    for _, fn in ipairs(hooks) do
+        fn(moduleRef)
     end
 end
 
-function module.bind(moduleData)
-    data = moduleData
-    return module
+function module.attach(moduleRef, hooks)
+    module.registerHooks(moduleRef, hooks)
 end
 
 return module
