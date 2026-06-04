@@ -31,7 +31,7 @@ local function init()
         config = config,
         modpack = PACK_ID,
         id = MODULE_ID,
-        name = "Quality of Life",
+        name = "QoL",
         tooltip = "Quality of life improvements for speedrunning.",
     })
     if not module then

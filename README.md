@@ -1,6 +1,6 @@
 # Quality of Life
 
-Add practical speedrun quality-of-life options for cleaner menus, faster resets, and better keyboard-and-mouse handling.
+Thank to Pony for their QoL mod. This is simply a port of many of their feature into this stack (alongside my own QoL)
 
 Part of the [Speedrun modpack](https://thunderstore.io/c/hades-ii/p/adamant/Speedrun_Modpack/).
 
@@ -11,23 +11,21 @@ Quality of Life bundles convenience features that smooth out menu handling, cuts
 The module currently includes:
 
 - KBM Escape Fix
-  Makes Escape work correctly during boon/pom selection, Hex selection, Path of Stars, and death sequences, so keyboard-and-mouse players can give up while dying.
-- Reroll Save
-  Makes rerolling (Saluting the Oath statue to change the seed) saves the game.
+  Makes Escape work during boon and pom selection, Hex selection, Path of Stars, and death sequences.
+- Rerolling Saves the Game
+  Saluting the Oath statue now triggers a game save.
 - Always Show Location
-  Makes the current location always visible.
+  Always displays the current location in the UI.
 - Skip Death Cutscene
   Skips the death cutscene and returns you to the main menu faster while still showing the death screen.
 - Auto Skip Dialogue
-  Automatically skips routine dialogue prompts during gameplay while leaving important conversation types alone.
+  Automatically skips dialogue prompts during gameplay.
 - Skip Run End Cutscene
   Skips the end-of-run cutscene and returns you to the main menu faster while still showing the victory screen.
 - Spawn in Training Grounds
-  Starts you in the Training Grounds instead of the usual spawn flow.
-- Arcana And Fear On Victory Screen
-  Adds Arcana and Fear information to the victory screen.
-
-Use it when you want cleaner attempt flow and fewer menu/input friction points without changing core combat routing.
+  Spawns you in the Training Grounds instead of the House of Hades. Useful for testing and practicing.
+- Arcana & Fear on Victory Screen
+  Displays Arcana and Fear on the victory screen.
 
 ## Installation
 
