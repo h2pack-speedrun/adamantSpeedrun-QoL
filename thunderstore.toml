@@ -2,11 +2,11 @@
 schemaVersion = "0.0.1"
 
 [package]
-namespace = "adamant"
-name = "Speedrun_QoL"
+namespace = "adamantSpeedrun"
+name = "QoL"
 description = "Provides several QoL options for faster gameplay and a better KBM experience."
 versionNumber = "1.1.0"
-websiteUrl = "https://github.com/h2pack-speedrun/adamant-Speedrun_QoL"
+websiteUrl = "https://github.com/h2pack-speedrun/adamantSpeedrun-QoL"
 containsNsfwContent = false
 
 [package.dependencies]
