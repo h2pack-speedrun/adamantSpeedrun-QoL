@@ -2,7 +2,7 @@
 
 Add practical speedrun quality-of-life options for cleaner menus, faster resets, and better keyboard-and-mouse handling.
 
-Part of the [Speedrun modpack](https://thunderstore.io/c/hades-ii/p/adamant/Speedrun_Core/).
+Part of the [Speedrun modpack](https://thunderstore.io/c/hades-ii/p/adamant/Speedrun_Modpack/).
 
 ## What It Does
 
@@ -33,4 +33,4 @@ Use it when you want cleaner attempt flow and fewer menu/input friction points w
 
 Install via r2modman.
 
-This module is usually installed as part of the full [Speedrun modpack](https://thunderstore.io/c/hades-ii/p/adamant/Speedrun_Core/), where it appears in the shared Speedrun UI with the other speedrun-focused modules.
+This module is usually installed as part of the full [Speedrun modpack](https://thunderstore.io/c/hades-ii/p/adamant/Speedrun_Modpack/), where it appears in the shared Speedrun UI with the other speedrun-focused modules.
