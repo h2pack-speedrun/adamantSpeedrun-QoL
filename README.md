@@ -11,24 +11,16 @@ Quality of Life bundles convenience features that smooth out menu handling, cuts
 The module currently includes:
 
 ### The following are direct ports from **PonyQoL** mod
-- Always Show Location
-  Always displays the current location in the UI.
-- Skip Death Cutscene
-  Skips the death cutscene and returns you to the main menu faster while still showing the death screen.
-- Auto Skip Dialogue
-  Automatically skips dialogue prompts during gameplay.
-- Skip Run End Cutscene
-  Skips the end-of-run cutscene and returns you to the main menu faster while still showing the victory screen.
-- Spawn in Training Grounds
-  Spawns you in the Training Grounds instead of next to Frinos pool.
+- **Always Show Location:** Always displays the current location in the UI.
+- **Skip Death Cutscene:** Skips the death cutscene and returns you to the main menu faster while still showing the death screen.
+- **Auto Skip Dialogue:** Automatically skips dialogue prompts during gameplay.
+- **Skip Run End Cutscene:** Skips the end-of-run cutscene and returns you to the main menu faster while still showing the victory screen.
+- **Spawn in Training Grounds:** Spawns you in the Training Grounds instead of next to Frinos pool.
 
 ### The following are my QoL additions
-- KBM Escape Fix
-  Makes Escape work during boon and pom selection, Hex selection, Path of Stars, and death sequences.
-- Rerolling Saves the Game
-  Saluting the Oath statue now triggers a game save.
-- Arcana & Fear on Victory Screen
-  Displays Arcana and Fear on the victory screen.
+- **KBM Escape Fix:** Makes Escape work during boon and pom selection, Hex selection, Path of Stars, and death sequences.
+- **Rerolling Saves the Game:** Saluting the Oath statue now triggers a game save.
+- **Arcana & Fear on Victory Screen:** Displays Arcana and Fear on the victory screen.
 
 <img src="https://raw.githubusercontent.com/h2pack-speedrun/adamantSpeedrun-QoL/main/assets/victory1.jpg" width="80%"/>
 
