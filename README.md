@@ -1,6 +1,6 @@
 # Quality of Life
 
-Thank to Pony for their QoL mod. This is simply a port of many of their feature into this stack (alongside my own QoL)
+Thank to Pony for their QoL mod. This is simply a port of many of their feature into this stack for hashing/profiles (alongside my own QoL)
 
 Part of the [Speedrun modpack](https://thunderstore.io/c/hades-ii/p/adamantSpeedrun/Speedrun_Modpack/).
 
