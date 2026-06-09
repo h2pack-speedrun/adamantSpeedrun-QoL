@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-06-09
+
 ### Changed
 
 - Ported module boot, hook registration, fallback UI, and draw widgets to the current ModpackLib host/draw APIs.
@@ -17,6 +19,7 @@
 
 Initial release
 
-[unreleased]: https://github.com/h2pack-speedrun/adamant-Speedrun_QoL/compare/1.1.0...HEAD
+[unreleased]: https://github.com/h2pack-speedrun/adamantSpeedrun-QoL/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/h2pack-speedrun/adamantSpeedrun-QoL/compare/1.1.0...2.0.0
 [1.1.0]: https://github.com/h2pack-speedrun/adamant-Speedrun_QoL/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/h2pack-speedrun/adamant-Speedrun_QoL/compare/b8f648708191f957be797b1fcdc3ed2c462932c7...1.0.0
