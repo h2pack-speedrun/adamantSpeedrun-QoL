@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-06-12
+
+### Fixed
+
+- remove outdated asset image (
+845a16)
+
+### Changed
+
+- use native module config backend (
+1a3cf7)
+
 ## [2.0.2] - 2026-06-09
 
 ## [2.0.1] - 2026-06-09
