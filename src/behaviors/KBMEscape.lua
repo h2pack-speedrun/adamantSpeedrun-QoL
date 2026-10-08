@@ -52,10 +52,13 @@ return {
                     end
                 end
 
-                for screenName, screen in pairs(ActiveScreens) do
-                    if ExcludedScreens[screenName] then
-                        return false
-                    end
+                -- Only let Escape pause when an excluded screen is on top. Anything stacked over it
+                -- (trait tray, boon info, codex) should block pause so Escape closes that first.
+                if ExcludedScreens[ActiveScreenOrder[#ActiveScreenOrder]] then
+                    return false
+                end
+
+                for _, screen in pairs(ActiveScreens) do
                     if screen.BlockPause then
                         return true
                     end
