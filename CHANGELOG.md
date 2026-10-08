@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [5.1.0] - 2026-10-08
+
+### Fixed
+
+- let Escape close overlays opened over boon, hex and star screens (b3d7968)
+
 ## [5.0.0] - 2026-10-05
 
 ### Changed
