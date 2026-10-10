@@ -10,7 +10,9 @@ local module = {
 }
 
 local MetaUpgradeDisplay = {
-    StartY = 895,
+    -- The boon panel and HUD are bottom-anchored, so the strip keeps its gap above the HUD on
+    -- every aspect ratio (895 at the 1080-high 16:9 canvas).
+    StartBottomOffset = 185,
     SpacingX = 40,
     SpacingY = 50,
     Columns = 25,
@@ -78,10 +80,11 @@ local function CreateMetaUpgradeDisplay()
     end
 
     local totalCards = #equippedCards
-    if totalCards == 0 then return display.StartY end
+    local startY = ScreenHeight - display.StartBottomOffset
+    if totalCards == 0 then return startY end
 
     local centerX = ScreenCenterX
-    local yOffset = display.StartY
+    local yOffset = startY
     local cardIndex = 1
 
     while cardIndex <= totalCards do
