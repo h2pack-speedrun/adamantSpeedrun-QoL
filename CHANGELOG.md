@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [5.1.1] - 2026-10-10
+
+### Fixed
+
+- anchor the victory Arcana and Fear display to the bottom edge (7d5bd7e)
+
 ## [5.1.0] - 2026-10-08
 
 ### Fixed
